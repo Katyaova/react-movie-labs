@@ -1,21 +1,22 @@
 import React, { useContext } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
-const AddToFavoritesIcon = ({ movie }) => {
-  const context = useContext(MoviesContext);
+const AddToPlaylistIcon = ({ movie }) => {
+  const context = useContext(MoviesContext); // 👈 Access MoviesContext
 
-  const handleAddToFavorites = (e) => {
+  const handleAddToMustWatch = (e) => {
     e.preventDefault();
-    context.addToFavorites(movie);
+    context.addToMustWatch(movie); // 👈 Call the handler from context
   };
 
   return (
-    <IconButton aria-label="add to favorites" onClick={handleAddToFavorites}>
-      <FavoriteIcon color="primary" fontSize="large" />
+    <IconButton aria-label="add to must watch" onClick={handleAddToMustWatch}>
+      <PlaylistAddIcon color="primary" fontSize="large" />
     </IconButton>
   );
 };
 
-export default AddToFavoritesIcon;
+export default AddToPlaylistIcon;
+
