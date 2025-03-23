@@ -7,9 +7,11 @@ import FilterCard from "../components/filterMoviesCard";
 const HomePage = (props) => {
   const [movies, setMovies] = useState([]);
 
+  // Added state for filters
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
 
+  // Filtering logic
   const genreId = Number(genreFilter);
 
   let displayedMovies = movies
@@ -20,12 +22,11 @@ const HomePage = (props) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
     });
 
+  // Function to update filter state
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
     else setGenreFilter(value);
   };
-
-
 
   useEffect(() => {
     fetch(
@@ -48,17 +49,22 @@ const HomePage = (props) => {
       </Grid>
       <Grid container sx={{flex: "1 1 500px"}}>
         <Grid key="find" size={{xs: 12, sm: 6, md: 4, lg: 3, xl: 2}} sx={{padding: "20px"}}>
-        <FilterCard
-      onUserInput={handleChange}
-      titleFilter={nameFilter}
-      genreFilter={genreFilter}
-    />
+        
+          {/* Updated FilterCard with props */}
+          <FilterCard
+            onUserInput={handleChange}
+            titleFilter={nameFilter}
+            genreFilter={genreFilter}
+          />
 
         </Grid>
+
+        {/* Updated MovieList to use filtered movies */}
         <MovieList movies={displayedMovies} />
 
       </Grid>
     </Grid>
   );
 };
+
 export default HomePage;
