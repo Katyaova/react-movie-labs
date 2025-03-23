@@ -4,11 +4,11 @@ import IconButton from "@mui/material/IconButton";
 import { MoviesContext } from "../../contexts/moviesContext";
 
 const AddToPlaylistIcon = ({ movie }) => {
-  const { addToMustWatch } = useContext(MoviesContext); // 👈 get handler from context
+  const { addToMustWatch } = useContext(MoviesContext); 
 
   const handleAdd = (e) => {
     e.preventDefault();
-    addToMustWatch(movie); // 👈 call handler on click
+    addToMustWatch(movie); 
   };
 
   return (
