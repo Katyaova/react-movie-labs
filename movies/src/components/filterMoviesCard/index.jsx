@@ -16,6 +16,7 @@ import Spinner from '../spinner';
 
 
 
+
 const formControl = 
   {
     margin: 1,
@@ -54,8 +55,6 @@ export default function FilterMoviesCard(props) {
   const handleGenreChange = (e) => {
     handleChange(e, "genre", e.target.value);
   };
-
-    
 
 
   return (
