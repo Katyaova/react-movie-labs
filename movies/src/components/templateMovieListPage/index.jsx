@@ -5,10 +5,12 @@ import MovieList from "../movieList";
 import Grid from "@mui/material/Grid2";
 
 
+
 function MovieListPageTemplate({ movies, title, action }) {
 
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
+  const [sortOrder, setSortOrder] = useState("");
   const genreId = Number(genreFilter);
 
   let displayedMovies = movies
@@ -18,12 +20,26 @@ function MovieListPageTemplate({ movies, title, action }) {
 
     .filter((m) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
-    });
+    })
 
-  const handleChange = (type, value) => {
-    if (type === "name") setNameFilter(value);
-    else setGenreFilter(value);
-  };
+      
+
+    if (sortOrder === "asc") {
+      displayedMovies.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortOrder === "desc") {
+      displayedMovies.sort((a, b) => b.title.localeCompare(a.title));
+    }
+
+    
+    
+
+    const handleChange = (type, value) => {
+      if (type === "name") setNameFilter(value);
+      else if (type === "genre") setGenreFilter(value);
+      else if (type === "sort") setSortOrder(value); 
+    };
+    
+  
 
   return (
     <Grid container>
@@ -40,6 +56,7 @@ function MovieListPageTemplate({ movies, title, action }) {
             onUserInput={handleChange}
             titleFilter={nameFilter}
             genreFilter={genreFilter}
+            sortOrder={sortOrder}
           />
         </Grid>
         <MovieList action={action} movies={displayedMovies}></MovieList>
@@ -48,4 +65,6 @@ function MovieListPageTemplate({ movies, title, action }) {
     </Grid>
   );
 }
+
+
 export default MovieListPageTemplate;

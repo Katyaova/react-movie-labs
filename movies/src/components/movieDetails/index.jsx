@@ -24,9 +24,16 @@ const root = {
   listStyle: "none",
   padding: 1.5,
   margin: 0,
+  backgroundColor: "#edf6f0",
+  borderRadius: "8px",
+  boxShadow: 1,
 };
 
-const chip = { margin: 0.5 };
+const chip = {
+  margin: 0.5,
+  backgroundColor: "#cdeacd",
+  fontWeight: 500,
+};
 
 const MovieDetails = ({ movie }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -36,52 +43,57 @@ const MovieDetails = ({ movie }) => {
 
   return (
     <>
-      <Typography variant="h5" component="h3">
+      <Typography variant="h5" component="h3" sx={{ mb: 1, color: "#2e7d32" }}>
         Overview
       </Typography>
 
-      <Typography variant="h6" component="p">
+      <Typography variant="body1" component="p" sx={{ mb: 3 }}>
         {movie.overview}
       </Typography>
 
-      <Paper component="ul" sx={{ ...root }}>
+      <Paper component="ul" sx={{ ...root, mb: 2 }}>
         <li>
-          <Chip label="Genres" sx={{ ...chip }} color="primary" />
+          <Chip label="Genres" sx={{ ...chip, backgroundColor: "#5C9A76", color: "#fff" }} />
         </li>
         {movie.genres.map((g) => (
           <li key={g.name}>
-            <Chip label={g.name} sx={{ ...chip }} />
+            <Chip label={g.name} sx={chip} />
           </li>
         ))}
       </Paper>
 
-      <Paper component="ul" sx={{ ...root }}>
+      <Paper component="ul" sx={{ ...root, mb: 2 }}>
         <li>
-          <Chip label="Production Countries" sx={{ ...chip }} color="primary" />
+          <Chip
+            label="Production Countries"
+            sx={{ ...chip, backgroundColor: "#5C9A76", color: "#fff" }}
+          />
         </li>
         {movie.production_countries.map((country) => (
           <li key={country.iso_3166_1}>
-            <Chip label={country.name} sx={{ ...chip }} />
+            <Chip label={country.name} sx={chip} />
           </li>
         ))}
       </Paper>
 
-      <Paper component="ul" sx={{ ...root }}>
-        <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
+      <Paper component="ul" sx={{ ...root, mb: 4 }}>
+        <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} sx={chip} />
         <Chip
           icon={<MonetizationIcon />}
-          label={`${movie.revenue.toLocaleString()}`}
+          label={`$${movie.revenue.toLocaleString()}`}
+          sx={chip}
         />
         <Chip
           icon={<StarRate />}
           label={`${movie.vote_average} (${movie.vote_count})`}
+          sx={chip}
         />
-        <Chip label={`Released: ${movie.release_date}`} />
+        <Chip label={`Released: ${movie.release_date}`} sx={chip} />
       </Paper>
 
       {/* Reviews Button */}
       <Fab
-        color="secondary"
+        color="success"
         variant="extended"
         onClick={() => setDrawerOpen(true)}
         sx={{
@@ -91,7 +103,7 @@ const MovieDetails = ({ movie }) => {
           zIndex: 1000,
         }}
       >
-        <NavigationIcon />
+        <NavigationIcon sx={{ mr: 1 }} />
         Reviews
       </Fab>
       <Drawer
@@ -112,9 +124,11 @@ const MovieDetails = ({ movie }) => {
           bottom: "5em",
           right: "1em",
           zIndex: 1000,
+          backgroundColor: "#66bb6a",
+          "&:hover": { backgroundColor: "#4caf50" },
         }}
       >
-        <RecommendIcon />
+        <RecommendIcon sx={{ mr: 1 }} />
         Recommendations
       </Fab>
       <Drawer
@@ -135,9 +149,11 @@ const MovieDetails = ({ movie }) => {
           bottom: "9em",
           right: "1em",
           zIndex: 1000,
+          backgroundColor: "#81c784",
+          "&:hover": { backgroundColor: "#66bb6a" },
         }}
       >
-        <PeopleIcon />
+        <PeopleIcon sx={{ mr: 1 }} />
         Cast
       </Fab>
       <Drawer
@@ -158,9 +174,11 @@ const MovieDetails = ({ movie }) => {
           bottom: "13em",
           right: "1em",
           zIndex: 1000,
+          backgroundColor: "#a5d6a7",
+          "&:hover": { backgroundColor: "#81c784" },
         }}
       >
-        <MovieIcon />
+        <MovieIcon sx={{ mr: 1 }} />
         Watch Trailer
       </Fab>
       <Drawer

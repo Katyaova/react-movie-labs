@@ -1,3 +1,4 @@
+
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router";
@@ -15,13 +16,7 @@ import TopRatedMoviesPage from "./pages/topRatedMoviesPage";
 import PopularMoviesPage from "./pages/popularMoviesPage";
 import NowPlayingMoviesPage from "./pages/nowPlayingMoviesPage";
 import MovieRecommendationsPage from "./pages/movieRecommendationsPage";
-import './styles/theme.css'; 
-
-
-
-
-
-
+import MustWatchMoviesPage from "./pages/mustWatchMoviesPage";
 
 
 const queryClient = new QueryClient({
@@ -52,6 +47,7 @@ const App = () => {
             <Route path="/movies/popular" element={<PopularMoviesPage />} />
             <Route path="/movies/now" element={<NowPlayingMoviesPage />} />
             <Route path="/movie/:id/recommendations" element={<MovieRecommendationsPage />} />
+            <Route path="/mustwatch" element={<MustWatchMoviesPage />} />
           </Routes>
         </MoviesContextProvider>
       </BrowserRouter>
