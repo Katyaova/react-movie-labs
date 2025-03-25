@@ -15,6 +15,7 @@ import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router";
 import Avatar from '@mui/material/Avatar';
 
+
 import { MoviesContext } from "../../contexts/moviesContext";
 
 

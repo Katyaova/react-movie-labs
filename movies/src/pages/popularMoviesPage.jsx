@@ -1,16 +1,13 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getUpcomingMovies } from "../api/tmdb-api";
+import { getPopularMovies } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import PageTemplate from "../components/templateMovieListPage";
 
-
-import AddToPlaylistIcon from "../components/cardIcons/addToPlaylist";
-
-const UpcomingMoviesPage = () => {
+const PopularMoviesPage = () => {
   const { data, error, isLoading, isError } = useQuery({
-    queryKey: ["upcoming"],
-    queryFn: getUpcomingMovies,
+    queryKey: ["popular"],
+    queryFn: getPopularMovies,
   });
 
   if (isLoading) return <Spinner />;
@@ -18,13 +15,11 @@ const UpcomingMoviesPage = () => {
 
   return (
     <PageTemplate
-      title="Upcoming Movies"
+      title="Popular Movies"
       movies={data.results}
-    
-      action={(movie) => <AddToPlaylistIcon movie={movie} />}
+      action={() => null}
     />
   );
 };
 
-export default UpcomingMoviesPage;
-
+export default PopularMoviesPage;

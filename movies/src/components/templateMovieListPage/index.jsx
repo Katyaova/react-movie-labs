@@ -4,6 +4,7 @@ import FilterCard from "../filterMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid2";
 
+
 function MovieListPageTemplate({ movies, title, action }) {
 
   const [nameFilter, setNameFilter] = useState("");
@@ -12,8 +13,9 @@ function MovieListPageTemplate({ movies, title, action }) {
 
   let displayedMovies = movies
     .filter((m) => {
-      return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
-    })
+  return m.title?.toLowerCase().includes(nameFilter.toLowerCase());
+})
+
     .filter((m) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
     });
