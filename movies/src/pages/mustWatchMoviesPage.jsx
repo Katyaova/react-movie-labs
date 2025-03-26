@@ -1,39 +1,37 @@
-import React from "react";
-import { getMovies } from "../api/tmdb-api";
+import React, { useContext } from "react";
+import { getMovie } from "../api/tmdb-api";
+import { MoviesContext } from "../contexts/moviesContext";
 import PageTemplate from "../components/templateMovieListPage";
-import { useQuery } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 import Spinner from "../components/spinner";
 import AddToPlaylistIcon from "../components/cardIcons/addToPlaylist"; 
 
 const MustWatchMoviesPage = () => {
-  const { data, error, isPending, isError } = useQuery({
-    queryKey: ["mustwatch-discover"],
-    queryFn: getMovies,
+  const { mustWatch: movieIds } = useContext(MoviesContext);
+
+  const mustWatchQueries = useQueries({
+    queries: movieIds.map((movieId) => {
+      return {
+        queryKey: ['movie', { id: movieId }],
+        queryFn: getMovie,
+      };
+    })
   });
 
-  if (isPending) {
-    return <Spinner />;
-  }
+  const isPending = mustWatchQueries.some((q) => q.isPending);
 
-  if (isError) {
-    return <h1>{error.message}</h1>;
-  }
+  if (isPending) return <Spinner />;
 
-  const movies = data.results;
-
-  // Filter movies with the mustWatch flag
-  const mustWatchMovies = movies.filter((m) => m.mustWatch);
-
-  // Save to localStorage (optional)
-  localStorage.setItem("mustwatch", JSON.stringify(mustWatchMovies));
-
-  // Placeholder function to match structure
-  const addToMustWatch = (movieId) => true;
+  const movies = mustWatchQueries.map((q) => {
+    
+    q.data.genre_ids = q.data.genres.map((g) => g.id);
+    return q.data;
+  });
 
   return (
     <PageTemplate
       title="My Must Watch Playlist"
-      movies={mustWatchMovies}
+      movies={movies}
       action={(movie) => <AddToPlaylistIcon movie={movie} />}
     />
   );

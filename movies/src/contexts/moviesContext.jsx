@@ -10,11 +10,12 @@ const MoviesContextProvider = (props) => {
   
   const addToMustWatch = (movie) => {
     if (!mustWatch.some((m) => m.id === movie.id)) {
-      setMustWatch([...mustWatch, movie]); 
+      setMustWatch([...mustWatch, movie.id]); 
     }
   };
+  console.log(mustWatch)
 
-  
+
   const addToFavorites = (movie) => {
     if (!favorites.includes(movie.id)) {
       setFavorites([...favorites, movie.id]);
